@@ -20,8 +20,8 @@ const wineCategories = [
 export default function CategoryPage({ category }) {
 
   const [winesCategory, setWinesCategory] = useState([])
-  const [winesCategoryFilter, setWinesCategoryFilter] = useState(winesCategory)
   const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState('')
 
   const fetchCategory = (category) => {
     fetch(`http://localhost:3001/wines?category=${category}`)
@@ -31,10 +31,16 @@ export default function CategoryPage({ category }) {
   }
 
   useEffect(() => fetchCategory(category), [])
-  useEffect(() => {
-    const winesCategoryFilter = winesCategory.filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
-    setWinesCategoryFilter(winesCategoryFilter)
-  }, [search, winesCategory])
+
+  const filteredAndSortedWines = [...winesCategory].filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === 'az') {
+        return a.title.localeCompare(b.title)
+      }
+      if (sortBy === 'za') {
+        return b.title.localeCompare(a.title)
+      }
+    })
 
   const capitalize = category.charAt(0).toUpperCase() + category.slice(1);
 
@@ -57,9 +63,19 @@ export default function CategoryPage({ category }) {
           })}
       </div>
       <h2 className="text-center title-page mt-50">Vino {capitalize}</h2>
-      <SearchBar value={search} onChange={setSearch} />
+      <div className="text-center mt-30 d-flex">
+        <SearchBar value={search} onChange={setSearch} />
+        <select className="sort" name="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+          <option value="">Ordina per</option>
+          <option value="az">Nome A-Z</option>
+          <option value="za">Nome Z-A</option>
+        </select>
+      </div>
+      {filteredAndSortedWines.length === 1
+        ? <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultato trovato</p>
+        : <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultati trovati</p>}
       <div className="row">
-        {winesCategoryFilter.map(wine => {
+        {filteredAndSortedWines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
               <Link to={`/wines/${wine.id}`}>

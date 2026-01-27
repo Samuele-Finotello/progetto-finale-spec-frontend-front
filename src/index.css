@@ -5,6 +5,12 @@
   font-family: Merriweather, sans-serif;
 }
 
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* HEADER */
 header {
   height: 140px;
@@ -38,6 +44,10 @@ header img {
   align-items: center;
 }
 
+i.fa-solid:hover {
+  color: #ded0bc;
+}
+
 /* MAIN */
 body {
   background-color: #ded0bc
@@ -56,6 +66,17 @@ body {
 
 .white-circle img {
   height: 50px;
+}
+
+/* CARD */
+figure img {
+  height: 75vh;
+}
+
+.dates {
+  width: 40%;
+  margin-left: 80px;
+  line-height: 40px;
 }
 
 /* CLASSES */
@@ -109,7 +130,19 @@ div.wd-30 img {
   color: #2E2E2E;
   background-color: #e6ded4;
   border: 2px solid #2E2E2E;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.sort {
+  font-size: 18px;
+  padding: 4px;
+  color: #2E2E2E;
+  background-color: #e6ded4;
+  border: 2px solid #2E2E2E;
+  border-left: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .d-flex {
@@ -138,6 +171,10 @@ div.wd-30 img {
   padding: 10px;
 }
 
+.my-50 {
+  margin: 50px 0;
+}
+
 .mt-50 {
   margin-top: 50px;
 }
@@ -152,6 +189,10 @@ div.wd-30 img {
 
 .mt-5 {
   margin-top: 5px;
+}
+
+.fs-40 {
+  font-size: 40px;
 }
 
 .fs-18 {

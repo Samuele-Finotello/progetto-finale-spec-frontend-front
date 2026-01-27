@@ -20,8 +20,8 @@ const wineCategories = [
 export default function Homepage() {
 
   const [wines, setWines] = useState([])
-  const [filteredWines, setFilteredWines] = useState(wines)
   const [search, setSearch] = useState('')
+  const [sortBy, setSortBy] = useState('')
 
   const fetchWines = () => {
     fetch('http://localhost:3001/wines')
@@ -31,10 +31,24 @@ export default function Homepage() {
   }
 
   useEffect(fetchWines, [])
-  useEffect(() => {
-    const winesFilter = wines.filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
-    setFilteredWines(winesFilter)
-  }, [search, wines])
+
+  const filteredAndSortedWines = [...wines]
+    .filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => {
+      if (sortBy === 'az') {
+        return a.title.localeCompare(b.title)
+      }
+      if (sortBy === 'za') {
+        return b.title.localeCompare(a.title)
+      }
+      if (sortBy === 'category-az') {
+        return a.category.localeCompare(b.category)
+      }
+      if (sortBy === 'category-za') {
+        return b.category.localeCompare(a.category)
+      }
+      return 0;
+    })
 
   return (
     <>
@@ -54,9 +68,21 @@ export default function Homepage() {
         })}
       </div>
       <h2 className="text-center title-page mt-50">Tutti i nostri vini</h2>
-      <SearchBar value={search} onChange={setSearch} />
+      <div className="text-center mt-30 d-flex">
+        <SearchBar value={search} onChange={setSearch} />
+        <select className="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+          <option value="">Ordina per</option>
+          <option value="az">Nome A-Z</option>
+          <option value="za">Nome Z-A</option>
+          <option value="category-az">Categoria A-Z</option>
+          <option value="category-za">Categoria Z-A</option>
+        </select>
+      </div>
+      {filteredAndSortedWines.length === 1
+        ? <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultato trovato</p>
+        : <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultati trovati</p>}
       <div className="row">
-        {filteredWines.map(wine => {
+        {filteredAndSortedWines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
               <Link to={`/wines/${wine.id}`}>
