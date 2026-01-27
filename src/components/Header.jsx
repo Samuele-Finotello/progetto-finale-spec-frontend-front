@@ -18,13 +18,13 @@ export default function Header() {
       </div>
       <div id="right-header" className="px-10">
         <span className="px-10">
-          <Link className="link-text" to={'/comparator'}><i className="fa-solid fa-scale-balanced"></i></Link>
+          <Link className="link-text" to={'/comparator'}><i className="fa-solid fa-scale-balanced link"></i></Link>
         </span>
         <span className="px-10">
-          <Link className="link-text" to={'/favourites'}><i className="fa-solid fa-heart"></i></Link>
+          <Link className="link-text" to={'/favourites'}><i className="fa-solid fa-heart link"></i></Link>
         </span>
         <span className="px-10">
-          <Link className="link-text" to={'/'}><i className="fa-solid fa-house"></i></Link>
+          <Link className="link-text" to={'/'}><i className="fa-solid fa-house link"></i></Link>
         </span>
       </div>
     </header>

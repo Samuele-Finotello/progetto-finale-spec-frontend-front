@@ -17,6 +17,7 @@ header {
   width: 100%;
   background-color: #6D1A1A;
   position: fixed;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +45,7 @@ header img {
   align-items: center;
 }
 
-i.fa-solid:hover {
+.link:hover {
   color: #ded0bc;
 }
 
@@ -79,6 +80,60 @@ figure img {
   line-height: 40px;
 }
 
+/* FAVOURITES */
+.heart {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  font-size: 30px;
+}
+
+.heart-card {
+  font-size: 30px;
+}
+
+.heart:hover {
+  cursor: pointer;
+}
+
+.heart-card:hover {
+  cursor: pointer;
+}
+
+.favourite-img {
+  height: 250px;
+}
+
+/* COMPARATOR */
+.add-comparator {
+  position: absolute;
+  bottom: 10%;
+  right: 3%;
+  padding: 5px;
+  font-size: 18px;
+  color: #2E2E2E;
+  background-color: #e6ded4;
+  border: 2px solid #ded0bc;
+  border-radius: 10px;
+}
+
+.add-comparator-card {
+  padding: 5px;
+  font-size: 18px;
+  color: #2E2E2E;
+  background-color: #e6ded4;
+  border: 2px solid #ded0bc;
+  border-radius: 10px;
+}
+
+.add-comparator:hover {
+  cursor: pointer;
+}
+
+.add-comparator-card:hover {
+  cursor: pointer;
+}
+
 /* CLASSES */
 .link-text {
   text-decoration: none;
@@ -109,6 +164,17 @@ div.wd-30 img {
 
 .wd-30 {
   width: calc(33.333% - 20px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 3px solid #e6ded4;
+  border-radius: 15px;
+}
+
+.wd-100 {
+  width: 100%;
+  padding: 20px;
+  position: relative;
   display: flex;
   align-items: center;
   border: 3px solid #e6ded4;
@@ -159,6 +225,14 @@ div.wd-30 img {
   text-align: center;
 }
 
+.text-red {
+  color: #6D1A1A;
+}
+
+.text-black {
+  color: #2E2E2E;
+}
+
 .px-10 {
   padding: 0 10px;
 }
@@ -171,8 +245,12 @@ div.wd-30 img {
   padding: 10px;
 }
 
-.my-50 {
-  margin: 50px 0;
+.my-40 {
+  margin: 40px 0;
+}
+
+.ms-40 {
+  margin-left: 40px;
 }
 
 .mt-50 {

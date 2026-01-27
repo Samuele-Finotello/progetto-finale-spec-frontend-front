@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
+import FavouritesContext from "../contexts/FavouritesContext"
 
 const wineCategories = [
   {
@@ -22,6 +23,7 @@ export default function Homepage() {
   const [wines, setWines] = useState([])
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState('')
+  const { toggleFavourite, isFavourite } = useContext(FavouritesContext)
 
   const fetchWines = () => {
     fetch('http://localhost:3001/wines')
@@ -85,6 +87,10 @@ export default function Homepage() {
         {filteredAndSortedWines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
+              <i onClick={() => toggleFavourite(wine)}
+                className="fa-solid fa-heart heart" style={{ color: isFavourite(wine) ? '#6D1A1A' : '#2E2E2E' }}
+              ></i>
+              <button onClick={() => addComparator} className="add-comparator">Aggiungi al comparatore</button>
               <Link to={`/wines/${wine.id}`}>
                 <img src={`/${wine.id}.png`} alt={wine.title} />
               </Link>
