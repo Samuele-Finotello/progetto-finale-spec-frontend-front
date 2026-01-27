@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useSearch } from "../contexts/SearchContext"
 
 const wineCategories = [
   {
@@ -19,6 +20,8 @@ const wineCategories = [
 export default function Homepage() {
 
   const [wines, setWines] = useState([])
+  const [filteredWines, setFilteredWines] = useState(wines)
+  const { search, setSearch } = useSearch()
 
   const fetchWines = () => {
     fetch('http://localhost:3001/wines')
@@ -28,6 +31,10 @@ export default function Homepage() {
   }
 
   useEffect(fetchWines, [])
+  useEffect(() => {
+    const winesFilter = wines.filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
+    setFilteredWines(winesFilter)
+  }, [search])
 
   return (
     <>
@@ -47,12 +54,16 @@ export default function Homepage() {
         })}
       </div>
       <h2 className="text-center title-page mt-50">Tutti i nostri vini</h2>
+      <div className="text-center mt-30">
+        <input className="input-search" type="text" placeholder="Cerca..." value={search} onChange={e => setSearch(e.target.value)} />
+        {search === '' ? null : wines.length !== 1 ? <p className="mt-5 fs-15">{`${wines.length} vini trovati`}</p> : <p className="mt-5 fs-15">{`${wines.length} vino trovato`}</p>}
+      </div>
       <div className="row">
         {wines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
               <Link to={`/wines/${wine.id}`}>
-                <img src={`${wine.image}`} alt={wine.title} />
+                <img src={`/${wine.id}.png`} alt={wine.title} />
               </Link>
               <div className="px-20">
                 <Link className="link-main" to={`/wines/${wine.id}`}>
