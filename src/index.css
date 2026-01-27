@@ -39,6 +39,10 @@ header img {
 }
 
 /* MAIN */
+body {
+  background-color: #ded0bc
+}
+
 .main-page {
   padding-top: 160px;
   font-size: 20px;
@@ -99,6 +103,7 @@ div.wd-30 img {
 }
 
 .input-search {
+  width: 35%;
   font-size: 18px;
   padding: 5px;
   color: #2E2E2E;

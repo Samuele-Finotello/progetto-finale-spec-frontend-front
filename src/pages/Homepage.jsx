@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { useSearch } from "../contexts/SearchContext"
+import SearchBar from "../components/SearchBar"
 
 const wineCategories = [
   {
@@ -21,7 +21,7 @@ export default function Homepage() {
 
   const [wines, setWines] = useState([])
   const [filteredWines, setFilteredWines] = useState(wines)
-  const { search, setSearch } = useSearch()
+  const [search, setSearch] = useState('')
 
   const fetchWines = () => {
     fetch('http://localhost:3001/wines')
@@ -34,7 +34,7 @@ export default function Homepage() {
   useEffect(() => {
     const winesFilter = wines.filter(wine => wine.title.toLowerCase().includes(search.toLowerCase()))
     setFilteredWines(winesFilter)
-  }, [search])
+  }, [search, wines])
 
   return (
     <>
@@ -54,12 +54,9 @@ export default function Homepage() {
         })}
       </div>
       <h2 className="text-center title-page mt-50">Tutti i nostri vini</h2>
-      <div className="text-center mt-30">
-        <input className="input-search" type="text" placeholder="Cerca..." value={search} onChange={e => setSearch(e.target.value)} />
-        {search === '' ? null : wines.length !== 1 ? <p className="mt-5 fs-15">{`${wines.length} vini trovati`}</p> : <p className="mt-5 fs-15">{`${wines.length} vino trovato`}</p>}
-      </div>
+      <SearchBar value={search} onChange={setSearch} />
       <div className="row">
-        {wines.map(wine => {
+        {filteredWines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
               <Link to={`/wines/${wine.id}`}>
