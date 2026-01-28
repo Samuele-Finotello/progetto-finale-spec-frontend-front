@@ -92,11 +92,24 @@ figure img {
   font-size: 30px;
 }
 
+.add-favourites-card {
+  padding: 5px;
+  font-size: 18px;
+  color: #e6ded4;
+  background-color: #6D1A1A;
+  border: 2px solid #ded0bc;
+  border-radius: 10px;
+}
+
 .heart:hover {
   cursor: pointer;
 }
 
 .heart-card:hover {
+  cursor: pointer;
+}
+
+.add-favourites-card:hover {
   cursor: pointer;
 }
 
@@ -171,12 +184,17 @@ div.wd-30 img {
   border-radius: 15px;
 }
 
-.wd-100 {
-  width: 100%;
+.wd-50 {
+  width: 50%;
+}
+
+.wd-80 {
+  width: 80%;
   padding: 20px;
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: space-around;
   border: 3px solid #e6ded4;
   border-radius: 15px;
 }
