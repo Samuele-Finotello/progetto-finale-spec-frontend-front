@@ -9,7 +9,7 @@ import WhiteCategory from "./pages/WhiteCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FavouritesContext from "./contexts/FavouritesContext";
 import ComparatorContext from "./contexts/ComparatorContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
 
@@ -18,7 +18,18 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   })
 
-  const [comparators, setComparators] = useState([])
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+  }, [favourites]);
+
+  const [comparators, setComparators] = useState(() => {
+    const saved = localStorage.getItem("comparators");
+    return saved ? JSON.parse(saved) : [];
+  })
+
+  useEffect(() => {
+    localStorage.setItem("comparators", JSON.stringify(comparators));
+  }, [comparators]);
 
   const toggleFavourite = wine => {
     setFavourites(prev => prev.some(w => w.id === wine.id) ? prev.filter(favId => favId.id !== wine.id) : [...prev, wine])
