@@ -23,7 +23,7 @@ export default function WineCard() {
     <>
       <div className="d-flex">
         <figure>
-          <img src={`${wine.image}`} alt={wine.title} />
+          <img className="detail-img" src={`${wine.image}`} alt={wine.title} />
         </figure>
         <div className="dates">
           <h2 className="title-page">{wine.title}</h2>

@@ -3,8 +3,7 @@ import { createContext } from "react";
 const ComparatorContext = createContext({
   comparators: [],
   toggleComparator: () => { },
-  isInComparator: () => false,
-  clearComparator: () => { }
+  isInComparator: () => false
 })
 
 export default ComparatorContext;

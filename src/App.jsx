@@ -13,11 +13,15 @@ import { useState } from "react";
 
 function App() {
 
-  const [favourites, setFavourites] = useState([])
+  const [favourites, setFavourites] = useState(() => {
+    const saved = localStorage.getItem("favourites");
+    return saved ? JSON.parse(saved) : [];
+  })
+
   const [comparators, setComparators] = useState([])
 
   const toggleFavourite = wine => {
-    setFavourites(prev => prev.includes(wine) ? prev.filter(favId => favId.id !== wine.id) : [...prev, wine])
+    setFavourites(prev => prev.some(w => w.id === wine.id) ? prev.filter(favId => favId.id !== wine.id) : [...prev, wine])
   }
 
   const toggleComparator = id => {
@@ -47,13 +51,9 @@ function App() {
     setFavourites([])
   }
 
-  const clearComparator = () => {
-    setComparators([])
-  }
-
   return (
     <>
-      <ComparatorContext.Provider value={{ comparators, toggleComparator, isInComparator, clearComparator }}>
+      <ComparatorContext.Provider value={{ comparators, toggleComparator, isInComparator }}>
         <FavouritesContext.Provider value={{ favourites, toggleFavourite, isFavourite, clearFavourites }}>
           <BrowserRouter>
             <Routes>
