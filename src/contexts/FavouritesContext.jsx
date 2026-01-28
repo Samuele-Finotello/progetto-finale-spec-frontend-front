@@ -3,7 +3,8 @@ import { createContext } from "react";
 const FavouritesContext = createContext({
   favourites: [],
   toggleFavourite: () => { },
-  isFavourite: () => false
+  isFavourite: () => false,
+  clearFavourites: () => { }
 })
 
 export default FavouritesContext;

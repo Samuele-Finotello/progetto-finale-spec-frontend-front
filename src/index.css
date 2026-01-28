@@ -121,7 +121,7 @@ figure img {
 .add-comparator {
   position: absolute;
   bottom: 10%;
-  right: 3%;
+  right: 1%;
   padding: 5px;
   font-size: 18px;
   color: #2E2E2E;
@@ -137,6 +137,11 @@ figure img {
   background-color: #e6ded4;
   border: 2px solid #ded0bc;
   border-radius: 10px;
+}
+
+.remove-comparator {
+  background-color: #6D1A1A;
+  color: #e6ded4;
 }
 
 .add-comparator:hover {
@@ -227,6 +232,15 @@ div.wd-30 img {
   border-left: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.disabled {
+  background-color: #ded0bc;
+  color: #2E2E2E;
+}
+
+.disabled:hover {
+  cursor: default;
 }
 
 .d-flex {

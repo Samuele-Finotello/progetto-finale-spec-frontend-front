@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { Link } from "react-router-dom"
 import SearchBar from "../components/SearchBar"
 import FavouritesContext from "../contexts/FavouritesContext"
+import ComparatorContext from "../contexts/ComparatorContext"
 
 const wineCategories = [
   {
@@ -24,6 +25,7 @@ export default function CategoryPage({ category }) {
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState('')
   const { toggleFavourite, isFavourite } = useContext(FavouritesContext)
+  const { comparators, toggleComparator, isInComparator } = useContext(ComparatorContext)
 
   const fetchCategory = (category) => {
     fetch(`http://localhost:3001/wines?category=${category}`)
@@ -80,10 +82,13 @@ export default function CategoryPage({ category }) {
         {filteredAndSortedWines.map(wine => {
           return (
             <div className="wd-30 p-10" key={wine.id}>
-              <button className="add-comparator">Aggiungi al comparatore</button>
               <i onClick={() => toggleFavourite(wine)}
                 className="fa-solid fa-heart heart" style={{ color: isFavourite(wine) ? '#6D1A1A' : '#2E2E2E' }}
               ></i>
+              <button onClick={() => toggleComparator(wine.id)}
+                className={`add-comparator ${isInComparator(wine.id) ? 'remove-comparator' :
+                  comparators.length === 2 && !isInComparator(wine.id) ? 'disabled' : ''}`}
+                disabled={comparators.length === 2 && !isInComparator(wine.id)}>{isInComparator(wine.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
               <Link to={`/wines/${wine.id}`}>
                 <img src={`/${wine.id}.png`} alt={wine.title} />
               </Link>

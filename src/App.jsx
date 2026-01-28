@@ -8,37 +8,68 @@ import PinkCategory from "./pages/PinkCategory";
 import WhiteCategory from "./pages/WhiteCategory";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FavouritesContext from "./contexts/FavouritesContext";
+import ComparatorContext from "./contexts/ComparatorContext";
 import { useState } from "react";
 
 function App() {
 
   const [favourites, setFavourites] = useState([])
+  const [comparators, setComparators] = useState([])
 
   const toggleFavourite = wine => {
     setFavourites(prev => prev.includes(wine) ? prev.filter(favId => favId.id !== wine.id) : [...prev, wine])
   }
 
+  const toggleComparator = id => {
+    setComparators(prev => {
+
+      if (prev.find(elemId => elemId === id)) {
+        return prev.filter(elemId => elemId !== id)
+      }
+
+      if (prev.length === 2) {
+        return prev;
+      }
+
+      return [...prev, id];
+    })
+  }
+
   const isFavourite = wine => {
-    return favourites.includes(wine)
+    return favourites.some(elem => elem.id === wine.id)
+  }
+
+  const isInComparator = id => {
+    return comparators.includes(id)
+  }
+
+  const clearFavourites = () => {
+    setFavourites([])
+  }
+
+  const clearComparator = () => {
+    setComparators([])
   }
 
   return (
     <>
-      <FavouritesContext.Provider value={{ favourites, toggleFavourite, isFavourite }}>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<DefaultLayout />}>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/category/rosso" element={<RedCategory />} />
-              <Route path="/category/rosé" element={<PinkCategory />} />
-              <Route path="/category/bianco" element={<WhiteCategory />} />
-              <Route path="/wines/:id" element={<WineCard />} />
-              <Route path="/comparator" element={<ComparatorPage />} />
-              <Route path="/favourites" element={<FavouritesPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </FavouritesContext.Provider>
+      <ComparatorContext.Provider value={{ comparators, toggleComparator, isInComparator, clearComparator }}>
+        <FavouritesContext.Provider value={{ favourites, toggleFavourite, isFavourite, clearFavourites }}>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<DefaultLayout />}>
+                <Route path="/" element={<Homepage />} />
+                <Route path="/category/rosso" element={<RedCategory />} />
+                <Route path="/category/rosé" element={<PinkCategory />} />
+                <Route path="/category/bianco" element={<WhiteCategory />} />
+                <Route path="/wines/:id" element={<WineCard />} />
+                <Route path="/comparator" element={<ComparatorPage />} />
+                <Route path="/favourites" element={<FavouritesPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </FavouritesContext.Provider>
+      </ComparatorContext.Provider>
     </>
   )
 }

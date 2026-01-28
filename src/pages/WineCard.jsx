@@ -1,12 +1,14 @@
 import { useEffect, useState, useContext } from "react"
 import { useParams } from "react-router-dom"
 import FavouritesContext from "../contexts/FavouritesContext"
+import ComparatorContext from "../contexts/ComparatorContext"
 
 export default function WineCard() {
 
   const { id } = useParams()
   const [wine, setWine] = useState({})
   const { toggleFavourite, isFavourite } = useContext(FavouritesContext)
+  const { comparators, toggleComparator, isInComparator } = useContext(ComparatorContext)
 
   const fetchWine = (id) => {
     fetch(`http://localhost:3001/wines/${id}`)
@@ -35,7 +37,10 @@ export default function WineCard() {
             <i onClick={() => toggleFavourite(wine)}
               className="fa-solid fa-heart heart-card" style={{ color: isFavourite(wine) ? '#6D1A1A' : '#2E2E2E' }}
             ></i>
-            <button onClick={() => addComparator} className="add-comparator-card mt-20 ms-40">Aggiungi al comparatore</button>
+            <button onClick={() => toggleComparator(wine.id)}
+              className={`add-comparator-card mt-20 ms-40 ${isInComparator(wine.id) ? 'remove-comparator' :
+                comparators.length === 2 && !isInComparator(wine.id) ? 'disabled' : ''}`}
+              disabled={comparators.length === 2 && !isInComparator(wine.id)}>{isInComparator(wine.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
           </p>
         </div>
       </div>
