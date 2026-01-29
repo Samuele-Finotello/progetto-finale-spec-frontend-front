@@ -74,7 +74,7 @@ export default function Homepage() {
       <h2 className="text-center title-page mt-50">Tutti i nostri vini</h2>
       <div className="text-center mt-30 d-flex">
         <SearchBar value={search} onChange={setSearch} />
-        <select className="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
+        <select className="sort" name="sort" value={sortBy} onChange={e => setSortBy(e.target.value)}>
           <option value="">Ordina per</option>
           <option value="az">Nome A-Z</option>
           <option value="za">Nome Z-A</option>
