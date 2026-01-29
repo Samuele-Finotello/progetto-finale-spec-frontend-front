@@ -10,7 +10,7 @@ export default function FavouritesPage() {
   return (
     <>
       {favourites.length === 0 ?
-        <h2 className="text-center title-page">Lista dei preferiti vuota 😢</h2> :
+        <h2 className="text-center title-page">Lista dei preferiti vuota</h2> :
         <div>
           <button className="add-favourites-card" onClick={() => clearFavourites()}>Rimuovi tutti i preferiti</button>
           <div className="row">

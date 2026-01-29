@@ -82,9 +82,11 @@ export default function Homepage() {
           <option value="category-za">Categoria Z-A</option>
         </select>
       </div>
-      {filteredAndSortedWines.length === 1
-        ? <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultato trovato</p>
-        : <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultati trovati</p>}
+      {filteredAndSortedWines.length === 0 ?
+        <h2 className="text-center mt-80">Nessun risultato trovato</h2>
+        : filteredAndSortedWines.length === 1
+          ? <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultato trovato</p>
+          : <p className="fs-15 mt-5 text-center">{filteredAndSortedWines.length} risultati trovati</p>}
       <div className="row">
         {filteredAndSortedWines.map(wine => {
           return (
@@ -92,10 +94,6 @@ export default function Homepage() {
               <i onClick={() => toggleFavourite(wine)}
                 className="fa-solid fa-heart heart" style={{ color: isFavourite(wine) ? '#6D1A1A' : '#2E2E2E' }}
               ></i>
-              <button onClick={() => toggleComparator(wine.id)}
-                className={`add-comparator ${isInComparator(wine.id) ? 'remove-comparator' :
-                  comparators.length === 2 && !isInComparator(wine.id) ? 'disabled' : ''}`}
-                disabled={comparators.length === 2 && !isInComparator(wine.id)}>{isInComparator(wine.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
               <Link to={`/wines/${wine.id}`}>
                 <img src={`/${wine.id}.png`} alt={wine.title} />
               </Link>
@@ -103,6 +101,10 @@ export default function Homepage() {
                 <Link className="link-main" to={`/wines/${wine.id}`}>
                   <strong>{wine.title}</strong> <br /> -<i className="fs-18">{wine.category}</i>
                 </Link>
+                <button onClick={() => toggleComparator(wine.id)}
+                  className={`mt-30 add-comparator ${isInComparator(wine.id) ? 'remove-comparator' :
+                    comparators.length === 4 && !isInComparator(wine.id) ? 'disabled' : ''}`}
+                  disabled={comparators.length === 4 && !isInComparator(wine.id)}>{isInComparator(wine.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
               </div>
             </div>
           )
