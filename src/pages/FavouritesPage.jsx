@@ -25,8 +25,8 @@ export default function FavouritesPage() {
                     <button onClick={() => toggleFavourite(favourite)} className="add-favourites-card">Rimuovi dai preferiti</button> <br />
                     <button onClick={() => toggleComparator(favourite.id)}
                       className={`add-comparator-card mt-20 ${isInComparator(favourite.id) ? 'remove-comparator' :
-                        comparators.length === 2 && !isInComparator(favourite.id) ? 'disabled' : ''}`}
-                      disabled={comparators.length === 2 && !isInComparator(favourite.id)}>{isInComparator(favourite.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
+                        comparators.length === 4 && !isInComparator(favourite.id) ? 'disabled' : ''}`}
+                      disabled={comparators.length === 4 && !isInComparator(favourite.id)}>{isInComparator(favourite.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
                   </div>
                 </div>
               )

@@ -12,7 +12,7 @@ export default function Header() {
         </div>
         <div>
           <Link className="link-text" to={'/'}>
-            <h1>La Cantina del Borgo</h1>
+            <h1>WineMatch</h1>
           </Link>
         </div>
       </div>
