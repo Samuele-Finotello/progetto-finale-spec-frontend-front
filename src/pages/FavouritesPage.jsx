@@ -16,19 +16,21 @@ export default function FavouritesPage() {
           <div className="row">
             {favourites.map(favourite => {
               return (
-                <div className="wd-80" key={favourite.id}>
-                  <div>
-                    <img className="favourite-img" src={`/${favourite.id}.png`} alt={favourite.title} />
+                <>
+                  <div className="wd-80" key={favourite.id}>
+                    <div>
+                      <img className="favourite-img" src={`/${favourite.id}.png`} alt={favourite.title} />
+                    </div>
+                    <h2 className="title-page ms-40 wd-50">{favourite.title}</h2>
+                    <div className="ms-40">
+                      <button onClick={() => toggleFavourite(favourite)} className="add-favourites-card">Rimuovi dai preferiti</button> <br />
+                      <button onClick={() => toggleComparator(favourite.id)}
+                        className={`add-comparator-card mt-20 ${isInComparator(favourite.id) ? 'remove-comparator' :
+                          comparators.length === 4 && !isInComparator(favourite.id) ? 'disabled' : ''}`}
+                        disabled={comparators.length === 4 && !isInComparator(favourite.id)}>{isInComparator(favourite.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
+                    </div>
                   </div>
-                  <h2 className="title-page ms-40 wd-50">{favourite.title}</h2>
-                  <div className="ms-40">
-                    <button onClick={() => toggleFavourite(favourite)} className="add-favourites-card">Rimuovi dai preferiti</button> <br />
-                    <button onClick={() => toggleComparator(favourite.id)}
-                      className={`add-comparator-card mt-20 ${isInComparator(favourite.id) ? 'remove-comparator' :
-                        comparators.length === 4 && !isInComparator(favourite.id) ? 'disabled' : ''}`}
-                      disabled={comparators.length === 4 && !isInComparator(favourite.id)}>{isInComparator(favourite.id) ? 'Rimuovi dal comparatore' : 'Aggiungi al comparatore'}</button>
-                  </div>
-                </div>
+                </>
               )
             })
             }
